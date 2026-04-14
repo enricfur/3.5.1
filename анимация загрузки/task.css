@@ -1,0 +1,7 @@
+.loader {
+  display: none;
+}
+
+.loader_active {
+  display: block;
+}
