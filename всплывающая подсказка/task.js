@@ -8,9 +8,9 @@ document.querySelectorAll('.has-tooltip').forEach(el => {
     e.preventDefault();
 
     // Если кликнули по уже активному — скрываем
-    if (tooltip.tooltip_owner === el && tooltip.classList.contains('tooltip_active')) {
-      tooltip.classList.remove('tooltip_active');
-      tooltip.tooltip_owner = null;
+    if (tooltip.tooltipOwner === el && tooltip.classList.contains('tooltipActive')) {
+      tooltip.classList.remove('tooltipActive');
+      tooltip.tooltipOwner = null;
       return;
     }
 
@@ -20,17 +20,17 @@ document.querySelectorAll('.has-tooltip').forEach(el => {
     // Позиционируем по положению элемента
     const rect = el.getBoundingClientRect();
     tooltip.style.left = `${rect.left + window.scrollX}px`;
-    tooltip.style.top  = `${rect.bottom + window.scrollY + 6}px`;
+    tooltip.style.top = `${rect.bottom + window.scrollY + 6}px`;
 
-    tooltip.classList.add('tooltip_active');
-    tooltip.tooltip_owner = el; // запоминаем владельца
+    tooltip.classList.add('tooltipActive');
+    tooltip.tooltipOwner = el; // запоминаем владельца
   });
 });
 
 // Клик вне элемента — скрываем подсказку
 document.addEventListener('click', (e) => {
   if (!e.target.closest('.has-tooltip')) {
-    tooltip.classList.remove('tooltip_active');
-    tooltip.tooltip_owner = null;
+    tooltip.classList.remove('tooltipActive');
+    tooltip.tooltipOwner = null;
   }
 });
