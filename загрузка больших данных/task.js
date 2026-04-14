@@ -1,16 +1,16 @@
-const form     = document.getElementById('uploadForm');
+const form = document.getElementById('uploadForm');
 const progress = document.getElementById('progress');
-const status   = document.getElementById('status');
+const status = document.getElementById('status');
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const formData = new FormData(form);
 
-  const xhr = new XMLHttpRequest();
+  const xmlHttpReq = new XMLHttpRequest();
 
   // Отслеживаем прогресс отправки
-  xhr.upload.addEventListener('progress', (e) => {
+  xmlHttpReq.upload.addEventListener('progress', (e) => {
     if (e.lengthComputable) {
       const value = e.loaded / e.total;
       progress.value = value;
@@ -18,19 +18,19 @@ form.addEventListener('submit', (e) => {
     }
   });
 
-  xhr.addEventListener('load', () => {
-    if (xhr.status === 200 || xhr.status === 201) {
+  xmlHttpReq.addEventListener('load', () => {
+    if (xmlHttpReq.status === 200 || xmlHttpReq.status === 201) {
       progress.value = 1;
-      status.textContent = '✅ Файл успешно загружен!';
+      status.textContent = 'Файл успешно загружен!';
     } else {
-      status.textContent = `❌ Ошибка сервера: ${xhr.status}`;
+      status.textContent = `Ошибка сервера: ${xmlHttpReq.status}`;
     }
   });
 
-  xhr.addEventListener('error', () => {
-    status.textContent = '❌ Ошибка соединения';
+  xmlHttpReq.addEventListener('error', () => {
+    status.textContent = 'Ошибка соединения';
   });
 
-  xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/upload');
-  xhr.send(formData);
+  xmlHttpReq.open('POST', 'https://students.netoservices.ru/nestjs-backend/upload');
+  xmlHttpReq.send(formData);
 });
